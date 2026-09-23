@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /poster/
+
+Sitemap: https://ledakanpemuda.com/sitemap.xml
