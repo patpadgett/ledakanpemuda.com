@@ -11,7 +11,10 @@ The pages are BUILD OUTPUT. Edit the generators, not these files:
 - then `./run.sh poster-darah` (needs `python3 -m http.server 8767` in that dir) and `python3 publish.py`
 - facts: `/data/pat/websites/ledakanpemuda/PRODUCT.md`; lyrics: `assets/source/lyrics-stanzas.json` (Bandcamp, verbatim) + `lyrics-en.json` (working translation — review before trusting)
 
-`publish.py` copies only the assets the pages link, rewrites paths root-absolute, writes the production head (canonical, og/twitter, JSON-LD MusicAlbum from the track list, favicon set), robots.txt, sitemap.xml, 404.html, CNAME.
+`publish.py` copies only the assets the pages link, rewrites paths root-absolute, writes the production head (canonical, og/twitter, JSON-LD MusicAlbum from the track list, favicon set, inlined font CSS + preloads), robots.txt, sitemap.xml, 404.html, CNAME.
+
+## Performance pass (2026-09-24)
+Lighthouse 67 → 84, LCP 15.8 s → 4.5 s (throttled mobile), CLS 0.101 → 0, phone first view 2.8 MB → 0.7 MB. Pixel-verified against the previous publish (mean diff 1.8/255, heights unchanged). Images are sized for their slots in WebP/AVIF with CSS filters baked in (`derive_images.py`); fonts are subset with metric-matched local fallbacks (`fonts.py`); `fonts.css` is gone (inlined). Details and before/after reports: `drafts/round3/README.md` § Performance pass, `drafts/round3/lh/`.
 
 ## What changed for launch (round-3 critique P1s, fixed in `listen.py`)
 - Play control tells the truth: BUKA PEMUTAR / OPEN THE BANDCAMP PLAYER → TUTUP PEMUTAR once open (closing removes the iframe; Bandcamp can't be started from outside its frame). One-line note with an exit to Bandcamp.

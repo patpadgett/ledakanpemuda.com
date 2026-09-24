@@ -28,8 +28,34 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/anton-normal-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="preload" href="/assets/fonts/barlow-condensed-normal-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pt-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pt-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/homemade-apple-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* subset web fonts + metric-matched local fallbacks (size-adjust), so the swap does not move the layout */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/anton-normal-400.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/barlow-condensed-normal-700.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/barlow-condensed-normal-500.woff2') format('woff2')}
+@font-face{font-family:'PT Serif';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/pt-serif-normal-400.woff2') format('woff2')}
+@font-face{font-family:'PT Serif';font-style:italic;font-weight:400;font-display:swap;src:url('/assets/fonts/pt-serif-italic-400.woff2') format('woff2')}
+@font-face{font-family:'Homemade Apple';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/homemade-apple-normal-400.woff2') format('woff2')}
+@font-face{font-family:'Special Elite';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/special-elite-normal-400.woff2') format('woff2')}
+@font-face{font-family:'Courier Prime';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/courier-prime-normal-400.woff2') format('woff2')}
+@font-face{font-family:'Courier Prime';font-style:italic;font-weight:400;font-display:swap;src:url('/assets/fonts/courier-prime-italic-400.woff2') format('woff2')}
+@font-face{font-family:'Courier Prime';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/courier-prime-normal-700.woff2') format('woff2')}
+@font-face{font-family:'Anton FB';font-style:normal;font-weight:400;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:71.64%;ascent-override:164.18%;descent-override:45.94%;line-gap-override:0.00%}
+@font-face{font-family:'Barlow Condensed FB';font-style:normal;font-weight:700;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:70.94%;ascent-override:140.96%;descent-override:28.19%;line-gap-override:0.00%}
+@font-face{font-family:'Barlow Condensed FB';font-style:normal;font-weight:500;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:67.97%;ascent-override:147.12%;descent-override:29.42%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB';font-style:normal;font-weight:400;src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif');size-adjust:109.84%;ascent-override:94.59%;descent-override:26.04%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB2';font-style:normal;font-weight:400;src:local('Noto Serif'),local('NotoSerif-Regular');size-adjust:92.77%;ascent-override:112.00%;descent-override:30.83%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB';font-style:italic;font-weight:400;src:local('Times New Roman Italic'),local('TimesNewRomanPS-ItalicMT'),local('Liberation Serif Italic'),local('LiberationSerif-Italic');size-adjust:104.80%;ascent-override:99.14%;descent-override:27.29%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB2';font-style:italic;font-weight:400;src:local('Noto Serif Italic'),local('NotoSerif-Italic');size-adjust:91.21%;ascent-override:113.91%;descent-override:31.36%;line-gap-override:0.00%}
+@font-face{font-family:'Homemade Apple FB';font-style:normal;font-weight:400;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:125.24%;ascent-override:103.47%;descent-override:67.53%;line-gap-override:1.40%}
+@font-face{font-family:'Special Elite FB';font-style:normal;font-weight:400;src:local('Courier New'),local('CourierNewPSMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono');size-adjust:88.49%;ascent-override:79.45%;descent-override:33.55%;line-gap-override:0.00%}
+@font-face{font-family:'Courier Prime FB';font-style:normal;font-weight:400;src:local('Courier New'),local('CourierNewPSMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
+@font-face{font-family:'Courier Prime FB';font-style:italic;font-weight:400;src:local('Courier New Italic'),local('CourierNewPS-ItalicMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono Italic'),local('LiberationMono-Italic');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
+@font-face{font-family:'Courier Prime FB';font-style:normal;font-weight:700;src:local('Courier New'),local('CourierNewPSMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
 
 *{box-sizing:border-box}
 img{display:block;max-width:100%}
@@ -52,11 +78,11 @@ img{display:block;max-width:100%}
 [class$="-list"] [class$="-p"]{margin:6px 0 18px;max-width:62ch}
 [class$="-list"] [class$="-src"]{margin:0 0 18px;font-size:.85em}
 
-.lirik,.lyr{--tw:'Special Elite',"Courier Prime",'Courier New',monospace;--mono:"Courier Prime",'Courier New',monospace;--serif:'PT Serif',Georgia,serif}
+.lirik,.lyr{--tw:'Special Elite','Special Elite FB',"Courier Prime",'Courier Prime FB','Courier New',monospace;--mono:"Courier Prime",'Courier Prime FB','Courier New',monospace;--serif:'PT Serif','PT Serif FB','PT Serif FB2',Georgia,serif}
 #lagu-h{--h2:clamp(56px,7vw,110px);font-size:var(--h2);line-height:1;width:min(100%,calc(var(--h2)*4.2))}
 #lagu-h [role=img]{display:block;height:auto;width:100%;margin-left:clamp(-14px,calc(var(--h2)*-.444),0px)}
 /* the plate is shifted 14px left and carries 1.7% transparent padding; the script's right edge lands on the U */
-.amp{display:block;text-align:right;font:400 clamp(30px,3vw,40px)/1 'Homemade Apple',cursive;color:var(--lyr-accent,currentColor);margin:10px 0 0;padding-right:calc(14px + 1.7%);transform:rotate(-2.5deg);transform-origin:right center;letter-spacing:0;text-transform:none}
+.amp{display:block;text-align:right;font:400 clamp(30px,3vw,40px)/1 'Homemade Apple','Homemade Apple FB',cursive;color:var(--lyr-accent,currentColor);margin:10px 0 0;padding-right:calc(14px + 1.7%);transform:rotate(-2.5deg);transform-origin:right center;letter-spacing:0;text-transform:none}
 @media (max-width:560px){#lagu-h{--h2:clamp(56px,19vw,110px)}}
 .lyr{border-bottom:2px solid var(--lyr-rule,currentColor)}
 .lyr-song{position:relative;border-top:2px solid var(--lyr-rule,currentColor)}
@@ -67,7 +93,7 @@ img{display:block;max-width:100%}
 .lyr-n{grid-column:1;grid-row:1;color:var(--lyr-mute,inherit);min-width:2.2ch}
 .lyr-t{grid-column:2;grid-row:1}
 .lyr-ten{display:block;margin-top:3px;font:italic 400 13px/1.3 var(--mono);color:var(--lyr-mute,inherit);letter-spacing:0;text-transform:none}
-.lyr-d{grid-column:3;grid-row:1;font:700 14px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:var(--lyr-mute,inherit)}
+.lyr-d{grid-column:3;grid-row:1;font:700 14px/1 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.14em;color:var(--lyr-mute,inherit)}
 .lyr-tog{grid-column:4;grid-row:1;justify-self:end;white-space:nowrap;font:400 14px/1 var(--tw);letter-spacing:.06em;color:var(--lyr-accent,currentColor)}
 .lyr-tog::before{content:"Lirik"}.lyr-tog::after{content:" +";font-size:1.3em;line-height:0}
 .lyr-song[open] .lyr-tog::before{content:"Tutup"}.lyr-song[open] .lyr-tog::after{content:" –"}
@@ -115,7 +141,7 @@ img{display:block;max-width:100%}
 /* the play control stays visible after opening: it becomes the close control */
 .player.is-open .player-btn{display:inline-flex}
 .player-lbl{display:grid;gap:5px;text-align:left}
-.player-lbl small{font:700 12px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.92}
+.player-lbl small{font:700 12px/1 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.92}
 .player-btn .ico-close{display:none}
 .player.is-open .player-btn .ico-play{display:none}
 .player.is-open .player-btn .ico-close{display:block}
@@ -124,9 +150,9 @@ img{display:block;max-width:100%}
 .player-note a{color:inherit;text-underline-offset:3px}
 /* listen strip: one dominant Bandcamp chip + three streaming chips, directly under the control */
 .listen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;margin:14px 0 0;max-width:420px}
-.listen-l{grid-column:1/-1;font:700 12px/1.3 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--strip-mute,inherit)}
+.listen-l{grid-column:1/-1;font:700 12px/1.3 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--strip-mute,inherit)}
 .listen-l span{margin-left:.6em;font-weight:500;letter-spacing:.12em;opacity:.8}
-.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 12px;text-decoration:none;font:700 14px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--strip-fg,inherit);background:var(--strip-bg,transparent);border:2px solid var(--strip-line,currentColor);box-shadow:var(--strip-shadow,none);transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,color .2s,border-color .2s}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 12px;text-decoration:none;font:700 14px/1 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--strip-fg,inherit);background:var(--strip-bg,transparent);border:2px solid var(--strip-line,currentColor);box-shadow:var(--strip-shadow,none);transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,color .2s,border-color .2s}
 .chip .ico{width:18px;height:18px;fill:currentColor;flex:none}
 .chip:hover,.chip:focus-visible{transform:translateY(-2px);background:var(--strip-hover,rgba(0,0,0,.06));border-color:var(--strip-line-h,var(--strip-line,currentColor))}
 @media (max-width:560px){
@@ -139,9 +165,9 @@ img{display:block;max-width:100%}
 .dock.is-on{transform:none;visibility:visible;transition-delay:0s}
 /* the dock covers the bottom 63px; give the scrolled content that much clearance while it is on */
 body.has-dock{padding-bottom:72px}
-.dock-play{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 8px 12px;border:0;cursor:pointer;background:var(--dock-accent,#fff);color:var(--dock-on-accent,#000);font:400 18px/1 'Anton',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.dock-play{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 8px 12px;border:0;cursor:pointer;background:var(--dock-accent,#fff);color:var(--dock-on-accent,#000);font:400 18px/1 'Anton','Anton FB',sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .dock-play .ico{width:18px;height:18px;fill:currentColor}
-.dock-l{margin-left:auto;font:700 12px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.dock-l{margin-left:auto;font:700 12px/1 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
 .dock-o{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:inherit;border:2px solid var(--dock-line,rgba(255,255,255,.25));transition:transform .2s cubic-bezier(.16,1,.3,1),color .2s,border-color .2s}
 .dock-o .ico{width:20px;height:20px;fill:currentColor}
 .dock-o:hover,.dock-o:focus-visible{transform:translateY(-2px);color:var(--dock-accent,#fff);border-color:currentColor}
@@ -154,23 +180,24 @@ body.has-dock{padding-bottom:72px}
   --note-bg:rgba(11,10,18,.78);--note-pad:6px 10px;
   --dock-bg:#000;--dock-fg:var(--cream);--dock-accent:var(--yellow);--dock-on-accent:var(--ink);--dock-line:rgba(247,239,216,.3)}
 html{background:var(--night)}
-body{margin:0;color:var(--cream);font:18px/1.5 'PT Serif',Georgia,serif;background:var(--night);-webkit-font-smoothing:antialiased}
+body{margin:0;color:var(--cream);font:18px/1.5 'PT Serif','PT Serif FB','PT Serif FB2',Georgia,serif;background:var(--night);-webkit-font-smoothing:antialiased}
 ::selection{background:var(--blood);color:#fff}
 a{color:inherit}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-.scrawl{font-family:'Homemade Apple',cursive}
+.scrawl{font-family:'Homemade Apple','Homemade Apple FB',cursive}
 
 /* ---------- the one-sheet ---------- */
 .sheet{position:relative;min-height:100svh;overflow:hidden;background:#000;display:grid;grid-template-rows:auto 1fr auto}
-.sheet .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:saturate(1.1) contrast(1.05)}
+.sheet picture,.sheet .art{position:absolute;inset:0;width:100%;height:100%}
+.sheet .art{object-fit:cover;object-position:50% 30%}
 .sheet::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,18,.82) 0,rgba(11,10,18,.12) 20%,rgba(11,10,18,.05) 32%,rgba(11,10,18,.62) 46%,rgba(11,10,18,.9) 60%,rgba(11,10,18,.98) 80%);pointer-events:none}
-.sheet::after{content:"";position:absolute;inset:0;background:url(/assets/img/horor-paper-seamless.jpg) center/700px repeat;mix-blend-mode:multiply;opacity:.3;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset:0;background:url(/assets/img/horor-paper-seamless.webp) center/700px repeat;mix-blend-mode:multiply;opacity:.3;pointer-events:none}
 /* the plate is painted grey-beige (mean 147/255); on top of the vignette it still read as veiled, so the shroud is
    lit to white before the glow and shadow are drawn — the shadow onto the darkened painting is what says 'in front' */
-.pocong{position:absolute;right:clamp(16px,4vw,52px);top:14%;width:min(9vw,124px);height:auto;filter:brightness(1.28) contrast(1.08) drop-shadow(0 0 30px rgba(124,255,90,.6)) drop-shadow(0 14px 22px rgba(0,0,0,.85));animation:drift 9s ease-in-out infinite alternate;z-index:4;pointer-events:none}
+.pocong{position:absolute;right:clamp(16px,4vw,52px);top:14%;width:min(9vw,124px);height:auto;filter:drop-shadow(0 0 30px rgba(124,255,90,.6)) drop-shadow(0 14px 22px rgba(0,0,0,.85));animation:drift 9s ease-in-out infinite alternate;z-index:4;pointer-events:none}
 @keyframes drift{from{transform:translate(0,0) rotate(-2deg)}to{transform:translate(-14px,-26px) rotate(2deg)}}
 .row{position:relative;z-index:3;width:100%;max-width:1240px;margin:0 auto;padding-left:clamp(16px,4vw,52px);padding-right:clamp(16px,4vw,52px)}
-.top{padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px;font:700 clamp(12px,1vw,14px)/1.3 'Barlow Condensed',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);text-shadow:0 2px 0 #000}
+.top{padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px;font:700 clamp(12px,1vw,14px)/1.3 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);text-shadow:0 2px 0 #000}
 .top span{background:rgba(11,10,18,.6);padding:6px 10px}
 .top .h1{margin:0;font-size:0}
 .top .h1 img{height:clamp(56px,6vw,84px);width:auto;filter:drop-shadow(0 3px 0 #000)}
@@ -178,12 +205,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .mid{align-self:end;text-align:center;padding-top:14vh;padding-bottom:10px;position:relative}
 .mid::before{content:"";position:absolute;left:-100vw;right:-100vw;top:10%;bottom:-40%;background:radial-gradient(ellipse 60% 80% at 50% 60%,rgba(11,10,18,.85),rgba(11,10,18,.55) 55%,transparent 100%);pointer-events:none;z-index:-1}
 .mid>*{position:relative}
-.mid .bill-top{margin:0 0 6px;font:700 clamp(12px,1.1vw,15px)/1.4 'Barlow Condensed',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 0 #000}
+.mid .bill-top{margin:0 0 6px;font:700 clamp(12px,1.1vw,15px)/1.4 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 0 #000}
 .mid .title{margin:0 auto;color:var(--blood-l);font-size:clamp(84px,13vw,200px);line-height:1;width:min(100%,900px);filter:drop-shadow(0 0 3px rgba(0,0,0,.95)) drop-shadow(0 0 16px rgba(0,0,0,.85)) drop-shadow(0 8px 0 #2a0507)}
 .mid .title .pd-word{display:block;height:1em;width:100%}
-.mid .tag{margin:10px auto 0;max-width:40ch;text-wrap:balance;font:400 clamp(24px,2.6vw,36px)/1.15 'Homemade Apple',cursive;color:#ff7a70;text-shadow:0 2px 0 #000,0 0 8px #000,0 0 24px #000}
-.mid .tag small{display:block;margin-top:10px;font:italic 400 clamp(16px,1.3vw,18px)/1.4 'PT Serif',serif;color:#e9dfc9;text-shadow:0 1px 0 #000,0 0 8px #000}
-.mid .lead{margin:12px auto 0;max-width:62ch;text-wrap:balance;font-size:clamp(16px,1.2vw,18px);color:var(--cream);text-shadow:0 1px 0 #000,0 0 8px #000}
+.mid .tag{margin:10px auto 0;max-width:21em;text-wrap:balance;font:400 clamp(24px,2.6vw,36px)/1.15 'Homemade Apple','Homemade Apple FB',cursive;color:#ff7a70;text-shadow:0 2px 0 #000,0 0 8px #000,0 0 24px #000}
+.mid .tag small{display:block;margin-top:10px;font:italic 400 clamp(16px,1.3vw,18px)/1.4 'PT Serif','PT Serif FB','PT Serif FB2',serif;color:#e9dfc9;text-shadow:0 1px 0 #000,0 0 8px #000}
+.mid .lead{margin:12px auto 0;max-width:33em;text-wrap:balance;font-size:clamp(16px,1.2vw,18px);color:var(--cream);text-shadow:0 1px 0 #000,0 0 8px #000}
 .mid .lead span{color:var(--mute);font-style:italic}
 
 .stub{padding-top:14px;padding-bottom:30px;display:grid;justify-items:center;gap:22px}
@@ -192,51 +219,51 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .stub .listen-l{text-align:center;text-shadow:0 1px 0 #000}
 @media (max-width:560px){.stub .listen{grid-template-columns:1fr 1fr}}
 .player{position:relative}
-.player-btn{position:relative;display:inline-flex;align-items:center;gap:14px;background:var(--red);color:#fff;border:3px solid var(--yellow);padding:12px 30px 12px 22px;min-height:60px;font:400 clamp(24px,2.2vw,32px)/1 'Anton',sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 0 #6b0a10,0 16px 30px -10px rgba(0,0,0,.8);transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s;isolation:isolate}
-.player-btn::before{content:"";position:absolute;inset:-30px -40px -50px -34px;background:url(/assets/img/tinta-splatter.png) center/contain no-repeat;z-index:-1;opacity:.9;pointer-events:none}
+.player-btn{position:relative;display:inline-flex;align-items:center;gap:14px;background:var(--red);color:#fff;border:3px solid var(--yellow);padding:12px 30px 12px 22px;min-height:60px;font:400 clamp(24px,2.2vw,32px)/1 'Anton','Anton FB',sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 0 #6b0a10,0 16px 30px -10px rgba(0,0,0,.8);transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s;isolation:isolate}
+.player-btn::before{content:"";position:absolute;inset:-30px -40px -50px -34px;background:url(/assets/img/tinta-splatter-400.webp) center/contain no-repeat;z-index:-1;opacity:.9;pointer-events:none}
 .player-btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 #6b0a10,0 18px 30px -10px rgba(0,0,0,.8)}
 .player-btn:active{transform:translateY(3px);box-shadow:0 3px 0 #6b0a10}
 .player-btn .ico{width:24px;height:24px;fill:#fff}
 .player iframe{display:block;margin-top:12px;background:#000;border:3px solid var(--yellow);box-shadow:0 6px 0 #6b0a10,0 16px 30px -10px rgba(0,0,0,.8)}
 .player-note{font-size:15px;color:var(--yellow);margin:8px 0 0}
-.bill{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;font:700 11px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);text-shadow:0 1px 0 #000;border-top:1px solid rgba(255,210,63,.35);padding-top:14px;width:100%}
+.bill{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;font:700 11px/1.2 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);text-shadow:0 1px 0 #000;border-top:1px solid rgba(255,210,63,.35);padding-top:14px;width:100%}
 .bill span{display:grid;gap:2px}
 .bill span small{font-size:12px;letter-spacing:.14em;color:#e9dfc9}
-.bill span{font-family:'Barlow Condensed',sans-serif;font-size:20px;letter-spacing:.03em;color:#fff;text-align:center}
+.bill span{font-family:'Barlow Condensed','Barlow Condensed FB',sans-serif;font-size:20px;letter-spacing:.03em;color:#fff;text-align:center}
 .bill span small{transform:none}
 
 /* ---------- the reel: every track a frame; the sung ones open to their lyrics ---------- */
-.reel{background:var(--paper) url(/assets/img/horor-paper-seamless.jpg) center/700px repeat;color:var(--ink);padding:56px 0 72px}
+.reel{background:var(--paper) url(/assets/img/horor-paper-seamless.webp) center/700px repeat;color:var(--ink);padding:56px 0 72px}
 .reel .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px 56px;align-items:start}
 .reel .head{position:sticky;top:20px}
 .reel h2{margin:0;color:var(--blood);font-size:clamp(56px,7vw,110px);line-height:1}
-.reel .sub{margin:18px 0 0;font:italic 400 17px/1.45 'PT Serif',serif;color:#5a4a3a;max-width:36ch}
+.reel .sub{margin:18px 0 0;font:italic 400 17px/1.45 'PT Serif','PT Serif FB','PT Serif FB2',serif;color:#5a4a3a;max-width:18.9em}
 .reel .sub span[lang=en]{display:block;margin-top:6px;font-size:15px}
-.reel .sub .scrawl{display:block;font:400 22px/1.3 'Homemade Apple',cursive;color:var(--blood);margin-top:16px;font-style:normal}
+.reel .sub .scrawl{display:block;font:400 22px/1.3 'Homemade Apple','Homemade Apple FB',cursive;color:var(--blood);margin-top:16px;font-style:normal}
 .reel .lyr-tools{margin-top:6px}
 .reel,.lyr{--lyr-rule:var(--ink);--lyr-accent:var(--blood);--lyr-mute:#5a4a3a;--lyr-id:var(--ink);--lyr-en:#4a3d31;--lyr-size:18px;--lyr-on-accent:#fff;--lyr-ex-size:17px}
 /* the lobby-card number tile from the old frames list */
-.lyr-n{font:400 34px/1 'Anton',sans-serif;color:var(--night);background:var(--yellow);padding:6px 0 2px;text-align:center;border:3px solid var(--ink);min-width:56px;align-self:start;letter-spacing:0}
+.lyr-n{font:400 34px/1 'Anton','Anton FB',sans-serif;color:var(--night);background:var(--yellow);padding:6px 0 2px;text-align:center;border:3px solid var(--ink);min-width:56px;align-self:start;letter-spacing:0}
 .lyr-row{grid-template-columns:56px minmax(0,1fr) auto minmax(4.6em,auto)}
 .reel{--lyr-indent:72px}
-.lyr-t{font-family:'Anton',sans-serif;font-size:clamp(22px,2.2vw,30px);letter-spacing:.03em;line-height:1.1;color:var(--ink)}
+.lyr-t{font-family:'Anton','Anton FB',sans-serif;font-size:clamp(22px,2.2vw,30px);letter-spacing:.03em;line-height:1.1;color:var(--ink)}
 .lyr-song:nth-child(10) .lyr-n{background:var(--violet);color:var(--green)}
 .lyr-song::before{content:"";position:absolute;left:-30px;top:22px;width:10px;height:14px;background:var(--blood);border-radius:50% 50% 50% 50%/40% 40% 60% 60%;transform:rotate(180deg);opacity:0;transition:opacity .3s}
 .lyr-song:hover::before,.lyr-song:focus-within::before,.lyr-song[open]::before{opacity:1}
 
 /* ---------- synopsis / credits ---------- */
-.syn{background:var(--paper) url(/assets/img/horor-paper-seamless.jpg) center/700px repeat;color:var(--ink);padding:64px 0;position:relative;overflow:hidden}
+.syn{background:var(--paper) url(/assets/img/horor-paper-seamless.webp) center/700px repeat;color:var(--ink);padding:64px 0;position:relative;overflow:hidden}
 .syn .row{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:44px;align-items:start}
 .syn h2{margin:0 0 16px;color:var(--blood);font-size:clamp(56px,7vw,110px);line-height:1}
 .syn h2 .pd-cerita-word{display:block;height:auto;width:min(100%,4.2em);margin-left:clamp(-14px,-0.255em,0px)}
-.syn p{margin:0 0 1em;max-width:64ch}
+.syn p{margin:0 0 1em;max-width:34.1em}
 .syn .en{color:#5a4a3a;font-style:italic}
 .still{position:relative;margin:0}
-.still img{width:100%;height:auto;border:8px solid #fff;filter:saturate(1.2) contrast(1.05) hue-rotate(-8deg);box-shadow:0 20px 40px -14px rgba(0,0,0,.9);transform:rotate(1.5deg)}
-.still figcaption{margin-top:14px;font:700 13px/1.4 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--blood)}
+.still img{width:100%;height:auto;border:8px solid #fff;box-shadow:0 20px 40px -14px rgba(0,0,0,.9);transform:rotate(1.5deg)}
+.still figcaption{margin-top:14px;font:700 13px/1.4 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--blood)}
 .credits{margin:22px 0 0;padding:0;columns:2;column-gap:20px}
 .credits div{break-inside:avoid;padding:6px 0;border-bottom:1px solid #c9b98f}
-.credits dt{font:700 12px/1.3 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--blood)}
+.credits dt{font:700 12px/1.3 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--blood)}
 .credits dd{margin:0;font-size:16px}
 
 /* ---------- now showing ---------- */
@@ -244,13 +271,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .showing .row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:16px 40px;align-items:center}
 .showing h2{margin:0;font-size:clamp(56px,7vw,110px);line-height:1;color:var(--ink)}
 .showing h2 .pd-ikuti-word{display:block;height:auto;width:min(100%,4.2em);margin-left:clamp(-14px,-0.304em,0px)}
-.showing .sub{margin:0 0 12px;font:italic 400 17px/1.3 'PT Serif',serif}
+.showing .sub{margin:0 0 12px;font:italic 400 17px/1.3 'PT Serif','PT Serif FB','PT Serif FB2',serif}
 .outlets{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.outlet{display:inline-flex;align-items:center;gap:10px;text-decoration:none;background:var(--ink);color:#fff;padding:14px 20px;min-height:48px;font:400 20px/1 'Anton',sans-serif;letter-spacing:.05em;text-transform:uppercase;border:3px solid var(--ink);box-shadow:4px 5px 0 var(--red);transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s}
+.outlet{display:inline-flex;align-items:center;gap:10px;text-decoration:none;background:var(--ink);color:#fff;padding:14px 20px;min-height:48px;font:400 20px/1 'Anton','Anton FB',sans-serif;letter-spacing:.05em;text-transform:uppercase;border:3px solid var(--ink);box-shadow:4px 5px 0 var(--red);transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s}
 .outlet:hover,.outlet:focus-visible{transform:translate(-2px,-2px);box-shadow:6px 7px 0 var(--red)}
 .outlet-bandcamp{background:var(--red);border-color:var(--red);box-shadow:4px 5px 0 var(--ink)}
 .outlet-bandcamp:hover{box-shadow:6px 7px 0 var(--ink)}
-.foot{background:#000;color:var(--mute);padding:22px clamp(16px,4vw,52px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font:700 13px/1.3 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.foot{background:#000;color:var(--mute);padding:22px clamp(16px,4vw,52px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font:700 13px/1.3 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.12em;text-transform:uppercase}
 .foot a{color:#fff;text-decoration:none;border-bottom:2px solid var(--green);display:inline-block;padding:6px 2px;margin:-6px 0}
 
 @media (max-width:980px){
@@ -285,16 +312,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <body class="d-poster-darah">
 <a class="skip" href="#lagu">Langsung ke daftar lagu</a>
 <header class="sheet" id="atas" data-hero>
-  <img class="art" src="/assets/img/horor-cover-painted.jpg" width="1024" height="1536" alt="">
-  <img class="pocong" src="/assets/img/horor-pocong.png" width="433" height="1530" alt="" aria-hidden="true">
+  <picture><source media="(max-width:560px)" type="image/avif" srcset="/assets/img/horor-cover-painted-m.avif" width="720" height="1536"><source media="(max-width:560px)" type="image/webp" srcset="/assets/img/horor-cover-painted-m.webp" width="720" height="1536"><source type="image/avif" srcset="/assets/img/horor-cover-painted.avif"><source type="image/webp" srcset="/assets/img/horor-cover-painted.webp"><img class="art" src="/assets/img/horor-cover-painted.jpg" width="1024" height="1536" alt="" aria-hidden="true" fetchpriority="high" decoding="async"></picture>
+  <img class="pocong" src="/assets/img/horor-pocong-300.webp" srcset="/assets/img/horor-pocong-180.webp 180w, /assets/img/horor-pocong-300.webp 300w" sizes="(max-width:560px) 54px, (max-width:980px) 14vw, 124px" width="300" height="1060" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
   <div class="row top">
     <span>Sebuah album dari</span>
-    <h1 class="h1"><img src="/assets/img/logo-drip.png" width="1161" height="1135" alt="Ledakan Pemuda"><span class="sr"> — Korupsi</span></h1>
+    <h1 class="h1"><img src="/assets/img/logo-drip-280.webp" width="280" height="274" alt="Ledakan Pemuda"><span class="sr"> — Korupsi</span></h1>
     <span>Jakarta · 2019</span>
   </div>
   <div class="row mid">
     <p class="bill-top">Adi Saputra · Mukti Satria · Vani</p>
-    <p class="title"><span class="pd-word" role="img" aria-label="Korupsi" style="--w:url(/assets/img/word-korupsi.png);aspect-ratio:1425/822"></span></p>
+    <p class="title"><span class="pd-word" role="img" aria-label="Korupsi" style="--w:url(/assets/img/word-korupsi.webp);aspect-ratio:1425/822"></span></p>
     <p class="tag" lang="id">Namaku ditulis pakai tinta darah.<small lang="en">“My name is written in blood ink.” — Tulisan Darah, lagu 02</small></p>
     <p class="lead" lang="id">Direkam di Jakarta 2019, di tengah unjuk rasa. Lagu tentang kecanduan, kematian, amarah, dan perlawanan. <span lang="en">Recorded in Jakarta in 2019, during the protests. Songs about addiction, mortality, anger and revolution.</span></p>
   </div>
@@ -308,7 +335,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <section class="reel" id="lagu" aria-labelledby="lagu-h">
   <div class="row">
     <div class="head">
-      <h2 id="lagu-h"><span class="pd-lagu-word" role="img" aria-label="Lagu" style="--w:url(/assets/img/word-lagu.png);aspect-ratio:1308/870"></span><span class="amp">&amp; lirik</span></h2>
+      <h2 id="lagu-h"><span class="pd-lagu-word" role="img" aria-label="Lagu" style="--w:url(/assets/img/word-lagu.webp);aspect-ratio:1308/870"></span><span class="amp">&amp; lirik</span></h2>
       <p class="sub" lang="id">Sebelas lagu, dibuka dan ditutup dengan instrumental. Satu baris dari tiap lagu ditulis dengan darah; buka lagunya untuk membaca lirik lengkap, bahasa Indonesia dan Inggris baris demi baris. <span lang="en">Eleven tracks, framed by instrumentals. One line from each is written in blood; open a song for the full lyrics, Indonesian and English line for line.</span><span class="scrawl" aria-hidden="true">Pisau bukan senjata, tapi kuas.</span></p>
       <div class="lyr-tools"><button type="button" data-open-all aria-expanded="false" data-open-label="Buka semua lirik" data-close-label="Tutup semua lirik">Buka semua lirik</button></div>
     </div>
@@ -319,12 +346,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <section class="syn" id="cerita" aria-labelledby="cerita-h">
   <div class="row">
     <div>
-      <h2 id="cerita-h"><span class="pd-cerita-word" role="img" aria-label="Cerita" style="--w:url(/assets/img/word-cerita.png);aspect-ratio:1436/820"></span></h2>
+      <h2 id="cerita-h"><span class="pd-cerita-word" role="img" aria-label="Cerita" style="--w:url(/assets/img/word-cerita.webp);aspect-ratio:1436/820"></span></h2>
       <p lang="id">Korupsi adalah album perdana Ledakan Pemuda. Rekaman pertama dibuat di Jakarta pada 2019, di tengah gelombang unjuk rasa. Produser Patrick Padgett merampungkannya dari Amerika Serikat selama enam tahun berikutnya dan merilisnya pada 1 Juni 2025.</p><p lang="id">Alat musik tradisional Indonesia dibenturkan dengan bass dubstep modern. Vokal Adi Saputra dan Mukti Satria, direkam pada sesi 2019, diimbangi oleh Vani.</p><p lang="id">Liriknya bicara tentang kecanduan, kematian, amarah, dan perlawanan: satu lagu tentang unjuk rasa 2019, yang lain tentang botol dan pil, bayang-bayang di kamar gelap, roh leluhur, dan pocong di bawah pohon kamboja. Sebelas lagu, 36 menit, dibuka dan ditutup dengan instrumental.</p>
       <p class="en" lang="en">Korupsi is the debut album by Ledakan Pemuda. The first recordings were made in Jakarta in 2019, during the protests. Producer Patrick Padgett finished the record from the United States over the next six years and released it on June 1, 2025. Traditional Indonesian instruments against modern dubstep bass. The vocals of Adi Saputra and Mukti Satria, from the 2019 sessions, are counterbalanced by Vani. The lyrics are about addiction, mortality, anger and revolution: one song about the 2019 protests, the others about the bottle and the pill, shadows in a dark room, ancestral spirits, and a pocong under the frangipani tree. Eleven tracks, 36 minutes, framed by an instrumental intro and outro.</p>
     </div>
     <div>
-      <figure class="still"><img src="/assets/img/portrait-860.jpg" width="859" height="800" alt="Patrick Padgett bersedekap mengenakan topi pet dan kaus berlogo Ledakan Pemuda di jalan Jakarta pada malam hari"><figcaption>Patrick Padgett · produser · Jakarta</figcaption></figure>
+      <figure class="still"><img src="/assets/img/portrait-860.webp" width="859" height="800" alt="Patrick Padgett bersedekap mengenakan topi pet dan kaus berlogo Ledakan Pemuda di jalan Jakarta pada malam hari" loading="lazy" decoding="async"><figcaption>Patrick Padgett · produser · Jakarta</figcaption></figure>
       <dl class="credits"><div><dt>Musik, lirik, produksi</dt><dd>Patrick Padgett</dd></div><div><dt>Vokal (sesi 2019)</dt><dd>Adi Saputra, Mukti Satria</dd></div><div><dt>Vokal</dt><dd>Vani</dd></div><div><dt>Direkam</dt><dd>Jakarta, 2019</dd></div><div><dt>Diproduksi</dt><dd>Amerika Serikat, 2019–2025</dd></div><div><dt>Rilis</dt><dd>1 Juni 2025</dd></div></dl>
     </div>
   </div>
@@ -332,7 +359,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 <section class="showing" id="ikuti" aria-labelledby="ikuti-h">
   <div class="row">
-    <h2 id="ikuti-h"><span class="pd-ikuti-word" role="img" aria-label="Ikuti" style="--w:url(/assets/img/word-ikuti.png);aspect-ratio:1335/889"></span></h2>
+    <h2 id="ikuti-h"><span class="pd-ikuti-word" role="img" aria-label="Ikuti" style="--w:url(/assets/img/word-ikuti.webp);aspect-ratio:1335/889"></span></h2>
     <div>
       <p class="sub">Sedang tayang di · <span lang="en">now showing on</span></p>
       <div class="outlets"><a class="outlet outlet-bandcamp" href="https://ledakanpemuda.bandcamp.com/album/korupsi" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M3 17h11.5L21 7H9.5z"/></svg><span>Bandcamp</span></a><a class="outlet outlet-spotify" href="https://open.spotify.com/album/5g6EyCPLJNrGHiHMVUosbJ" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6.5 9.5c3.8-1.2 7.6-.9 11 .9M7.3 12.6c3-.9 6-.6 8.8.8M8.1 15.5c2.3-.7 4.6-.5 6.7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Spotify</span></a><a class="outlet outlet-apple" href="https://music.apple.com/gb/album/korupsi/1827343406" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M9 4v11.2a2.8 2.8 0 1 1-2-2.7V7.4l9-2v8.3a2.8 2.8 0 1 1-2-2.7V3.2z"/></svg><span>Apple Music</span></a><a class="outlet outlet-amazon" href="https://www.amazon.com/dp/B0FHWQ4KKN" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M4 15.5c4.6 3 11.4 3 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.5 14.2l2.7 1.3-.6 3"/><rect x="6" y="5" width="12" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Amazon Music</span></a><a class="outlet outlet-youtube" href="https://music.youtube.com/playlist?list=OLAK5uy_nRIL_2eerZNtNPuJC19fuBYQ3dPwC9Sqs" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10 9v6l5.2-3z" fill="#000" class="ico-cut"/></svg><span>YouTube Music</span></a><a class="outlet outlet-soundcloud" href="https://soundcloud.com/ledakanpemuda/sets/korupsi" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M4 15v3M6.5 12v6M9 10v8M11.5 9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13.5 8.5a4.5 4.5 0 0 1 7.5 2.7A2.6 2.6 0 0 1 20 18h-6.5z"/></svg><span>SoundCloud</span></a></div><div class="outlets"><a class="outlet outlet-instagram" href="https://instagram.com/ledakanpemuda" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3"/></svg><span>Instagram</span></a><a class="outlet outlet-facebook" href="https://facebook.com/ledakanpemuda" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M13.5 21v-7.5H16l.5-3h-3V8.8c0-.9.3-1.5 1.6-1.5h1.6V4.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v1.9H7.5v3h2.8V21z"/></svg><span>Facebook</span></a></div>
