@@ -4,6 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Halaman tidak ada — Ledakan Pemuda</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e0b14">
 <link rel="icon" href="/favicon.ico">
 <style>
 /* subset web fonts + metric-matched local fallbacks (size-adjust), so the swap does not move the layout */
@@ -13,22 +14,24 @@
 @font-face{font-family:'Courier Prime';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/courier-prime-normal-400.woff2') format('woff2')}
 @font-face{font-family:'Courier Prime';font-style:italic;font-weight:400;font-display:swap;src:url('/assets/fonts/courier-prime-italic-400.woff2') format('woff2')}
 @font-face{font-family:'Courier Prime';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/courier-prime-normal-700.woff2') format('woff2')}
-@font-face{font-family:'Anton FB';font-style:normal;font-weight:400;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:71.64%;ascent-override:164.18%;descent-override:45.94%;line-gap-override:0.00%}
-@font-face{font-family:'PT Serif FB';font-style:normal;font-weight:400;src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif');size-adjust:109.84%;ascent-override:94.59%;descent-override:26.04%;line-gap-override:0.00%}
-@font-face{font-family:'PT Serif FB2';font-style:normal;font-weight:400;src:local('Noto Serif'),local('NotoSerif-Regular');size-adjust:92.77%;ascent-override:112.00%;descent-override:30.83%;line-gap-override:0.00%}
-@font-face{font-family:'PT Serif FB';font-style:italic;font-weight:400;src:local('Times New Roman Italic'),local('TimesNewRomanPS-ItalicMT'),local('Liberation Serif Italic'),local('LiberationSerif-Italic');size-adjust:104.80%;ascent-override:99.14%;descent-override:27.29%;line-gap-override:0.00%}
-@font-face{font-family:'PT Serif FB2';font-style:italic;font-weight:400;src:local('Noto Serif Italic'),local('NotoSerif-Italic');size-adjust:91.21%;ascent-override:113.91%;descent-override:31.36%;line-gap-override:0.00%}
+@font-face{font-family:'Anton FB';font-style:normal;font-weight:400;src:local('Arial'),local('ArialMT'),local('Roboto'),local('Roboto-Regular'),local('Liberation Sans');size-adjust:72.71%;ascent-override:161.77%;descent-override:45.26%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB';font-style:normal;font-weight:400;src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif');size-adjust:109.98%;ascent-override:94.47%;descent-override:26.01%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB2';font-style:normal;font-weight:400;src:local('Noto Serif'),local('NotoSerif-Regular');size-adjust:92.89%;ascent-override:111.86%;descent-override:30.79%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB';font-style:italic;font-weight:400;src:local('Times New Roman Italic'),local('TimesNewRomanPS-ItalicMT'),local('Liberation Serif Italic'),local('LiberationSerif-Italic');size-adjust:104.84%;ascent-override:99.10%;descent-override:27.28%;line-gap-override:0.00%}
+@font-face{font-family:'PT Serif FB2';font-style:italic;font-weight:400;src:local('Noto Serif Italic'),local('NotoSerif-Italic');size-adjust:91.25%;ascent-override:113.86%;descent-override:31.34%;line-gap-override:0.00%}
 @font-face{font-family:'Courier Prime FB';font-style:normal;font-weight:400;src:local('Courier New'),local('CourierNewPSMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
 @font-face{font-family:'Courier Prime FB';font-style:italic;font-weight:400;src:local('Courier New Italic'),local('CourierNewPS-ItalicMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono Italic'),local('LiberationMono-Italic');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
 @font-face{font-family:'Courier Prime FB';font-style:normal;font-weight:700;src:local('Courier New'),local('CourierNewPSMT'),local('Droid Sans Mono'),local('DroidSansMono'),local('Liberation Mono');size-adjust:99.92%;ascent-override:78.19%;descent-override:34.21%;line-gap-override:0.00%}
 *{box-sizing:border-box}html{background:#0e0b14}
-body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;color:#1a1420;font:18px/1.55 'PT Serif','PT Serif FB','PT Serif FB2',Georgia,serif;background:#f3e9cf url(/assets/img/horor-paper-seamless.webp) center/700px repeat}
+body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:24px;color:#1a1420;font:18px/1.55 'PT Serif','PT Serif FB','PT Serif FB2',Georgia,serif;background:#f3e9cf url(/assets/img/horor-paper-seamless.webp) center/700px repeat}
 main{max-width:560px;width:100%;border:3px solid #1a1420;box-shadow:6px 7px 0 #a80f19;padding:34px 32px 30px;background:rgba(243,233,207,.92)}
 h1{margin:0 0 10px;font:400 clamp(56px,14vw,96px)/1 'Anton','Anton FB',Impact,sans-serif;letter-spacing:.02em;color:#a80f19}
 p{margin:0 0 14px;max-width:44ch}p.en{color:#6b5a47;font-style:italic}
-code{font:400 16px/1.4 'Courier Prime','Courier Prime FB',monospace;background:rgba(26,20,32,.08);padding:2px 6px}
-a.go{display:inline-flex;align-items:center;gap:10px;margin-top:6px;background:#a80f19;color:#fff;text-decoration:none;padding:14px 22px;min-height:52px;font:400 22px/1 'Anton','Anton FB',sans-serif;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 5px 0 #4d0408}
+code{font:400 16px/1.4 'Courier Prime','Courier Prime FB',monospace;background:rgba(26,20,32,.08);padding:2px 6px;overflow-wrap:anywhere}
+a.go{display:inline-flex;align-items:center;gap:10px;margin-top:6px;background:#a80f19;color:#fff;text-decoration:none;padding:14px 22px;min-height:52px;font:400 22px/1 'Anton','Anton FB',sans-serif;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 5px 0 #4d0408;transition:transform .2s cubic-bezier(.16,1,.3,1)}
+@media (hover:hover){a.go:hover{transform:translateY(-2px)}}
 a.go:focus-visible{outline:3px solid #a80f19;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){a.go{transition:none}}
 </style>
 </head>
 <body>
@@ -38,6 +41,9 @@ a.go:focus-visible{outline:3px solid #a80f19;outline-offset:3px}
 <p class="en" lang="en">That page does not exist here. The album is one tap away.</p>
 <a class="go" href="/">Ke album Korupsi</a>
 </main>
-<script>document.getElementById('p').textContent=location.pathname||'/';</script>
+<script>
+/* the requested path, shown as text (textContent, never HTML); decoded when it can be, cut at 120 characters */
+(function(){var p=location.pathname||'/';try{p=decodeURIComponent(p)}catch(e){}if(p.length>120)p=p.slice(0,117)+'…';document.getElementById('p').textContent=p;})();
+</script>
 </body>
 </html>
