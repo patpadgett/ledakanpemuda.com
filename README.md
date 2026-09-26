@@ -27,6 +27,17 @@ Three rounds against the built page (`harden_probe.cjs`, `harden2_probe.cjs`, `h
 - 404: requested path shown as text (never HTML), percent-decoded when valid, cut at 120 characters, wraps anywhere at 320 px; `min-height: 100vh` before `100svh` for old engines.
 - Verified in Chromium, WebKit and Firefox (Playwright). Untested: real Windows High Contrast (emulation only), a physical device's `navigator.onLine`, screen-reader announcement of the `role=status` notes.
 
+## Polish pass (2026-09-26)
+Final pass on the rendered page at 320-1440 (`polish_evidence.cjs`, measurements + screenshots read by a vision model), then one fix batch and one confirm round.
+- IKUTI outlets: an even grid of equal blocks (3x2 wide, 2x3 from 1180 down and on phones at 16 px Anton, one stack under 375) instead of a ragged wrap (4/2, 3/2/1, 2/1/1/1/1). Every label single-line; Instagram/Facebook share the columns.
+- Section plates stand on their ink, not the PNG's clear space: LAGU's top ink meets the list's first rule, CERITA's meets the photo top (negative top margins = the plate's measured alpha inset). Text fallback and print undo them.
+- Billing block on tablet portrait (561-806 px): a 2x2 grid with real columns (the centred flex fell 3+1, then 2+2 with nothing aligned).
+- Footer text stands on the 1240 px content column's edge (it sat at the full-bleed 52 px inset, 100 px left of everything above it).
+- Story measure 32.5em (~70 characters; 34.1em ran to 76); `text-wrap:pretty` on story paragraphs and the blood lines; the closing quote of a blood line is bound to its last word (a 13-letter word made a one-word last line at three widths). No single-word last lines remain at 320-1440.
+- Durations in tabular figures (colons stack); the toggle's larger +/- sign pulled onto the caps' optical centre; hover styles behind `(hover:hover)` so a tap no longer leaves the drop marker / underline stuck on a touch screen; scrollbar coloured from the palette.
+- Dock on small phones: outlets never shrink (`flex:none`); the label is 15 px from 389 down and screen-reader-only under 364; a too-long translated label ellipsizes instead of pushing an outlet off screen.
+Re-verified after the batch: harden3 probe (30 Tab stops ringed, zoom 200/400 %, long/CJK/RTL text, no-JS, print), published-tree probe (404 hardening, JSON-LD, states at three widths), WebKit + Firefox states, detector (22 warnings, all the poster-form set from the critique, none new). Deliberately left: the 1440 story column runs to ~585 px on a 1240 grid (right column is the photo), and the third empty cell in the social row of the IKUTI grid.
+
 ## What changed for launch (round-3 critique P1s, fixed in `listen.py`)
 - Play control tells the truth: BUKA PEMUTAR / OPEN THE BANDCAMP PLAYER → TUTUP PEMUTAR once open (closing removes the iframe; Bandcamp can't be started from outside its frame). One-line note with an exit to Bandcamp.
 - Four outlets (Bandcamp, Spotify, Apple Music, YouTube Music) directly under the control; a fixed dock (Putar · outlets) once the hero scrolls away, off over IKUTI and the footer.
