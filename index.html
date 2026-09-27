@@ -684,7 +684,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     else if(room>=10*u) L=rnd(Math.max(8*u,room*.4),room);
     else { used[pick]=1; if(budget>0) timer=setTimeout(release, 600); return; }   /* no room above the words for this one */
     var r={state:'bead', tip:pick, t:performance.now(), beadT:rnd(1600,3000), x0:tip[0], hx:tip[0], hy:tip[1]-4, pts:[], hr:0,
-      w0:w0, wT:wT, v:0, a:55*u, vmax:rnd(38,52)*u, L:L, dist:0, amp:rnd(2.2,3.6)*u, lean:rnd(-.06,.06), seed:Math.random()*6.28, stop:0, bulb:bulb, tall:tall};
+      w0:w0, wT:wT, v:0, a:55*u, vmax:rnd(38,52)*u, L:L, dist:0, amp:rnd(3.5,5.5)*u, lean:rnd(-.1,.1), seed:Math.random()*6.28, stop:0, bulb:bulb, tall:tall};
     /* the top of the run is hidden inside the painted drip (the plate is drawn over the canvas): it tapers in from the drip's neck */
     r.pts.push({x:tip[0], y:tip[1]-70, w:Math.min(w0*.4,tip[2]*g.s*.6)}, {x:tip[0], y:tip[1]-34, w:w0}, {x:tip[0], y:tip[1]-4, w:w0});
     runs.push(r);
@@ -748,7 +748,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
     /* where the paint is fire, from a thumbnail: the embers are born there */
     var c2=document.createElement('canvas'), gw=48, gh=72; c2.width=gw; c2.height=gh; var x2=c2.getContext('2d'); x2.drawImage(img,0,0,gw,gh);
-    var d=x2.getImageData(0,0,gw,gh).data; cells.length=0;
+    var d; try{ d=x2.getImageData(0,0,gw,gh).data; }catch(e){ cells.length=0; return; } cells.length=0;
     var mx=1; for(var i=0;i<gw*gh;i++){ var r=d[i*4],g=d[i*4+1],b=d[i*4+2], f=r-Math.max(g,b); if(f>36&&r>110&&i/gw<gh*.9){ cells.push([((i%gw)+.5)/gw, (Math.floor(i/gw)+.5)/gh, f*r]); if(f*r>mx) mx=f*r; } }
     for(i=0;i<cells.length;i++) cells[i][2]=.25+.75*cells[i][2]/mx;   /* a heat weight: the hottest paint breeds most */
   }
