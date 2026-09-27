@@ -32,7 +32,7 @@
 <link rel="preload" href="/assets/fonts/pt-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/pt-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/homemade-apple-normal-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/img/word-korupsi.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="/assets/img/word-korupsi.webp" as="image" type="image/webp" fetchpriority="high" crossorigin>
 <style>
 /* subset web fonts + metric-matched local fallbacks (size-adjust), so the swap does not move the layout */
 @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/anton-normal-400.woff2') format('woff2')}
@@ -215,11 +215,19 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .sheet{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#000;display:grid;grid-template-rows:auto 1fr auto}   /* vh first: engines without svh (Safari <15.4, Chrome <108) keep a full-height sheet */
 .sheet picture,.sheet .art{position:absolute;inset:0;width:100%;height:100%}
 .sheet .art{object-fit:cover;object-position:50% 30%}
-.sheet::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,18,.82) 0,rgba(11,10,18,.12) 20%,rgba(11,10,18,.05) 32%,rgba(11,10,18,.62) 46%,rgba(11,10,18,.9) 60%,rgba(11,10,18,.98) 80%);pointer-events:none}
+.sheet::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,18,.82) 0,rgba(11,10,18,.7) 5%,rgba(11,10,18,.52) 10%,rgba(11,10,18,.34) 15%,rgba(11,10,18,.2) 20%,rgba(11,10,18,.11) 25%,rgba(11,10,18,.06) 30%,rgba(11,10,18,.05) 34%,rgba(11,10,18,.2) 40%,rgba(11,10,18,.62) 46%,rgba(11,10,18,.9) 60%,rgba(11,10,18,.98) 80%);pointer-events:none}
 .sheet::after{content:"";position:absolute;inset:0;background:url(/assets/img/horor-paper-seamless.webp) center/700px repeat;mix-blend-mode:multiply;opacity:.3;pointer-events:none}
 /* the plate is painted grey-beige (mean 147/255); on top of the vignette it still read as veiled, so the shroud is
    lit to white before the glow and shadow are drawn — the shadow onto the darkened painting is what says 'in front' */
-.pocong{position:absolute;right:clamp(16px,4vw,52px);top:14%;width:min(9vw,124px);height:auto;filter:drop-shadow(0 0 30px rgba(124,255,90,.6)) drop-shadow(0 14px 22px rgba(0,0,0,.85));animation:drift 9s ease-in-out infinite alternate;will-change:transform;z-index:4;pointer-events:none}
+.pocong{position:absolute;right:clamp(16px,4vw,52px);top:14%;width:min(9vw,124px);height:auto;--br:.5;filter:drop-shadow(0 0 calc(22px + 16px*var(--br)) rgba(124,255,90,calc(.42 + .36*var(--br)))) drop-shadow(0 14px 22px rgba(0,0,0,.85));animation:drift 9s ease-in-out infinite alternate;will-change:transform,filter;z-index:4;pointer-events:none}
+.pocong.sw{animation:none}
+/* overdrive layers. .api: the burning painting, a WebGL sibling of the <picture>, shown once its first frame is drawn (the <img> stays as the fallback under it).
+   .darah: the wet title, a 2D canvas laid over the KORUPSI plate inside .mid, under the lettering's stacking context so the tagline keeps its halo on top. */
+.api{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s;pointer-events:none}
+.api.on{opacity:1}
+.mid>canvas.darah{position:absolute;z-index:0;pointer-events:none}
+.mid .title,.mid .tag,.mid .lead{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){.api,.darah{display:none}.pocong.sw{animation:none;transform:none}}
 @keyframes drift{from{transform:translate(0,0) rotate(-2deg)}to{transform:translate(-14px,-26px) rotate(2deg)}}
 @keyframes drift-s{from{transform:translate(0,0) rotate(-1.5deg)}to{transform:translate(-6px,-10px) rotate(1.5deg)}}   /* under 980px the ghost shares its band with the tagline: a shorter drift */
 .row{position:relative;z-index:3;width:100%;max-width:1240px;margin:0 auto;padding-left:clamp(16px,4vw,52px);padding-right:clamp(16px,4vw,52px)}
@@ -229,11 +237,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .top .h1 img{height:clamp(56px,6vw,84px);width:auto;filter:drop-shadow(0 3px 0 #000);font:700 18px/1.2 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.1em;color:#fff}
 
 .mid{align-self:end;text-align:center;padding-top:14vh;padding-bottom:10px;position:relative}
-.mid::before{content:"";position:absolute;left:-100vw;right:-100vw;top:10%;bottom:-40%;background:radial-gradient(ellipse 60% 80% at 50% 60%,rgba(11,10,18,.85),rgba(11,10,18,.55) 55%,transparent 100%);pointer-events:none;z-index:-1}
+.mid::before{content:"";position:absolute;left:-100vw;right:-100vw;top:-30%;bottom:-40%;background:radial-gradient(ellipse 60% 62% at 50% 62%,rgba(11,10,18,.85),rgba(11,10,18,.55) 55%,rgba(11,10,18,.18) 82%,transparent 100%);pointer-events:none;z-index:-1}   /* the ellipse fades out before the box edge: no cut across the painting */
 .mid>*{position:relative}
 .mid .title{margin:0 auto;color:var(--blood-l);font-size:clamp(84px,13vw,200px);line-height:1;width:min(100%,900px);filter:drop-shadow(0 0 3px rgba(0,0,0,.95)) drop-shadow(0 0 16px rgba(0,0,0,.85)) drop-shadow(0 8px 0 #2a0507)}
 .mid .title .pd-word{display:block;height:1em;width:100%}
-.mid .tag{margin:10px auto 0;max-width:21em;text-wrap:balance;font:400 clamp(24px,2.6vw,36px)/1.15 'Homemade Apple','Homemade Apple FB',cursive;color:#ff7a70;text-shadow:0 2px 0 #000,0 0 8px #000,0 0 24px #000}
+.mid .tag{margin:clamp(10px,1.8vw,26px) auto 0;max-width:21em;text-wrap:balance;font:400 clamp(24px,2.6vw,36px)/1.15 'Homemade Apple','Homemade Apple FB',cursive;color:#ff7a70;text-shadow:0 2px 0 #000,0 0 8px #000,0 0 24px #000}
 .mid .tag small{display:block;margin-top:10px;font:italic 400 clamp(16px,1.3vw,18px)/1.4 'PT Serif','PT Serif FB','PT Serif FB2',serif;color:#e9dfc9;text-shadow:0 1px 0 #000,0 0 8px #000}
 .mid .lead{margin:12px auto 0;max-width:33em;text-wrap:balance;font-size:clamp(16px,1.2vw,18px);color:var(--cream);text-shadow:0 1px 0 #000,0 0 8px #000}
 .mid .lead span{color:var(--mute);font-style:italic}
@@ -570,6 +578,263 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     im.onerror=function(){ clearTimeout(t); el.setAttribute('data-plate','missing'); };
     im.src=m[1];
   });
+})();</script>
+<script>/* Tinta darah: the KORUPSI plate is still wet. Beads grow on the plate's own drip tips (measured from the plate at
+   build time), let go, run down behind the tagline and dry darker where they stop. Eleven runs, then the ink is spent.
+   Nothing without JS, under reduced motion, or when the plate fell back to type. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var word=document.querySelector('.mid .title .pd-word'), mid=document.querySelector('.row.mid'), sheet=document.querySelector('.sheet'), tag=document.querySelector('.mid .tag'), small=tag&&tag.querySelector('small');
+  if(!word||!mid||!sheet) return;
+  var PW=1425, PH=822, TIPS=[[138,797,19],[298,647,10],[407,702,17],[549,759,17],[667,634,10],[792,699,17],[918,786,19],[951,641,24],[1198,628,12],[1308,787,19]];   /* plate px: [x, y, ink width just above the tip] */
+  var cv=document.createElement('canvas'), ctx=cv.getContext('2d'); if(!ctx) return;
+  cv.className='darah'; cv.setAttribute('aria-hidden','true');
+  var runs=[], budget=6, hero=0, g=null, dpr=1, raf=0, timer=0, dryTimer=0, inView=true, lastTip=-1, used=[], t0=0;
+  function rnd(a,b){ return a+Math.random()*(b-a); }
+  function measure(){
+    var wb=word.getBoundingClientRect(), mb=mid.getBoundingClientRect();
+    if(wb.width<10||wb.height<10) return false;
+    var s=Math.min(wb.width/PW, wb.height/PH), ox=wb.left+(wb.width-PW*s)/2, oy=wb.top+(wb.height-PH*s)/2;
+    var tb=null; if(tag&&tag.firstChild&&tag.firstChild.nodeType===3){ var rg=document.createRange(); rg.selectNodeContents(tag.firstChild); tb=rg.getBoundingClientRect(); } else if(tag) tb=tag.getBoundingClientRect();
+    var sb=small?small.getBoundingClientRect():null, foot=sb?sb.top+sb.height*.35:(tb?tb.bottom+8:mb.bottom-6), left=ox-30, top=oy, w=PW*s+60, h=Math.min(mb.bottom-6,foot)-oy;
+    if(h<20) return false;
+    dpr=Math.min(window.devicePixelRatio||1, 2);
+    /* the script's ink sits in the middle ~70% of its line box: ascenders start ~14% down, the baseline is ~84% down */
+    g={s:s, u:Math.max(.7,Math.min(1.2,s/.2275)), w:w, h:h, maxY:h/s, tagTop:tb?(tb.top+tb.height*.14-oy):h*.8, tagBot:tb?(tb.top+tb.height*.86-oy):h};
+    cv.style.left=(left-mb.left)+'px'; cv.style.top=(top-mb.top)+'px'; cv.style.width=w+'px'; cv.style.height=h+'px';
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    return true;
+  }
+  function cx(x){ return (30+x*g.s)*dpr; }
+  function cy(y){ return y*g.s*dpr; }
+  function col(dry){ var a=[224,40,50], b=[92,5,9]; return 'rgb('+Math.round(a[0]+(b[0]-a[0])*dry)+','+Math.round(a[1]+(b[1]-a[1])*dry)+','+Math.round(a[2]+(b[2]-a[2])*dry)+')'; }
+  function path(p,side){ /* one edge of the run, side -1 left / +1 right, as a smooth polyline */
+    for(var i=0;i<p.length;i++){ var x=cx(p[i].x)+side*p[i].w*dpr/2, y=cy(p[i].y); if(i) ctx.lineTo(x,y); else ctx.moveTo(x,y); }
+  }
+  function outline(r){ /* the run as one closed shape: left edge down, round head, right edge up */
+    var p=r.pts, n=p.length, i, hx=cx(r.hx), hy=cy(r.hy), hr=r.hr*dpr;
+    ctx.beginPath();
+    if(n){ ctx.moveTo(cx(p[0].x)-p[0].w*dpr/2, cy(p[0].y)); for(i=1;i<n;i++) ctx.lineTo(cx(p[i].x)-p[i].w*dpr/2, cy(p[i].y)); }
+    else ctx.moveTo(hx-hr*.5, hy-hr*1.4);
+    /* the bead: a drop hanging off the last point, wider than the run, heavier at the bottom */
+    var tl=r.tall||2, sk=Math.sin(r.seed)*.22;   /* the drop leans the way the run last wandered */
+    ctx.bezierCurveTo(hx-hr*.35, hy+hr*.7, hx-hr*(1.3-sk), hy+hr*(tl-.75), hx+hr*sk, hy+hr*tl);
+    ctx.bezierCurveTo(hx+hr*(1.3+sk), hy+hr*(tl-.75), hx+hr*.35, hy+hr*.7, hx+(n?p[n-1].w*dpr/2:hr*.5), hy);
+    if(n){ for(i=n-1;i>=0;i--) ctx.lineTo(cx(p[i].x)+p[i].w*dpr/2, cy(p[i].y)); }
+    ctx.closePath();
+  }
+  function draw(now){
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height);
+    for(var k=0;k<runs.length;k++){
+      var r=runs[k]; if(r.state==='wait') continue;
+      var dry=r.stop?Math.max(0,Math.min(1,(now-r.stop-8000)/50000)):0;
+      /* 1. the second print pass: the same shape 8px down, like the plate's own drop shadow */
+      ctx.save(); ctx.translate(0, 8*dpr); outline(r); ctx.fillStyle='#2a0507'; ctx.fill(); ctx.restore();
+      /* 2+3. the ink: the plate's flat red, drying darker over a minute, in the same soft black halo the lettering wears */
+      ctx.save(); outline(r); ctx.fillStyle=col(dry);
+      ctx.shadowColor='rgba(0,0,0,.85)'; ctx.shadowBlur=16*dpr; ctx.fill(); ctx.fill(); ctx.fill();
+      ctx.shadowColor='rgba(0,0,0,.95)'; ctx.shadowBlur=4*dpr; ctx.fill(); ctx.fill(); ctx.restore();
+      /* no gloss: the plate is matte print, so is what runs out of it; wet reads as motion and then as the darker dried stain */
+    }
+  }
+  function step(now){
+    raf=0; var dt=Math.min(.05, (now-(t0||now))/1000); t0=now; var busy=false;
+    for(var k=0;k<runs.length;k++){
+      var r=runs[k];
+      if(r.state==='bead'){ busy=true; var f=Math.min(1,(now-r.t)/r.beadT); r.hr=r.w0*.3+(r.wT*r.bulb-r.w0*.3)*f*f; if(f>=1){ r.state='run'; } }
+      else if(r.state==='run'){
+        busy=true;
+        var remain=r.L-r.dist, vT=r.vmax*Math.max(.06, Math.min(1, remain/(40*g.u)));
+        r.v+= (r.v<vT? r.a*dt : -(r.v-vT)*4*dt);
+        var dy=r.v*dt; r.dist+=dy; r.hy+=dy/g.s;
+        /* the path wanders a little and the width breathes: a run hesitates and thickens where it slows */
+        r.hx=r.x0+(r.lean*r.dist+r.amp*Math.sin(r.dist*.03+r.seed)+r.amp*.5*Math.sin(r.dist*.11+r.seed*1.7)+r.amp*.25*Math.sin(r.dist*.31+r.seed*2.9))/g.s;
+        var q=Math.min(1,r.dist/(26*g.u)); q=q*q*(3-2*q);
+        var w=(r.w0*(1-q)+r.wT*q)*(1+.1*Math.sin(r.dist*.07+r.seed*2.3)+.09*Math.sin(r.dist*.9+r.seed*5.1)+.06*Math.sin(r.dist*2.3+r.seed*3.3));   /* the brush's ragged edge */
+        r.hr=r.wT*(r.bulb+.3*Math.min(1,r.dist/(60*g.u)));
+        if(r.hy>=g.maxY-r.hr*(r.tall+.1)/g.s){ r.hy=g.maxY-r.hr*(r.tall+.1)/g.s; remain=0; }
+        var lp=r.pts[r.pts.length-1]; if(!lp||(r.hy-lp.y)*g.s>=1.2) r.pts.push({x:r.hx,y:r.hy,w:w});
+        if(remain<=0){ r.state='stop'; r.stop=now; r.hr*=1.1; }
+      }
+    }
+    draw(now);
+    if(busy) raf=requestAnimationFrame(step); else dryLoop();
+  }
+  function dryLoop(){ /* colour keeps changing for a minute after the last run; 2.5 fps is plenty for that */
+    clearTimeout(dryTimer);
+    var wet=runs.some(function(r){ return r.state==='stop'&&performance.now()-r.stop<58500; });
+    if(wet) dryTimer=setTimeout(function(){ draw(performance.now()); dryLoop(); }, 400);
+  }
+  function near(i){ for(var k=0;k<runs.length;k++) if(Math.abs(TIPS[runs[k].tip][0]-TIPS[i][0])*g.s<22) return true; return false; }
+  function release(){
+    timer=0; if(!inView||document.hidden||!g){ if(budget>0) timer=setTimeout(release, 1500); return; }
+    var i, cand=[], wsum=0;
+    for(i=0;i<TIPS.length;i++){ if(used[i]||near(i)) continue; var wgt=Math.pow(TIPS[i][1]/PH,2); cand.push([i,wgt]); wsum+=wgt; }
+    if(!cand.length) return;
+    var pick=cand[0][0];
+    if(!runs.length){ for(i=0;i<TIPS.length;i++) if(TIPS[i][1]>TIPS[pick][1]) pick=i; }   /* the first drop lengthens the longest drip */
+    else { var z=Math.random()*wsum; for(i=0;i<cand.length;i++){ z-=cand[i][1]; if(z<=0){ pick=cand[i][0]; break; } } }
+    lastTip=pick; used[pick]=(used[pick]|0)+1; budget--;
+    /* the run is what flows out of the drip: it starts 30 plate-px up inside the drip at the drip's own width there, and its drop
+       never lands in the tagline's words. A drip too thin to feed a visible run, or with no room above the words, is left alone. */
+    var tip=TIPS[pick], u=g.u, tipY=tip[1]*g.s, isHero=hero<2&&(runs.length===0||Math.random()<.5),
+        w0=(isHero?rnd(7.5,9.5):rnd(4.5,6.5))*u, wT=w0*rnd(.8,1.05), bulb=rnd(1,1.9), tall=rnd(1.3,2.6), drop=wT*bulb*tall+wT*bulb,
+        room=g.tagTop-tipY-drop-3*u, below=g.h-tipY-drop-2*u, heroL=g.tagBot-drop-tipY-rnd(2,6)*u, L;   /* the hero's drop rests just above the script's baseline */
+    if(isHero&&heroL<=below&&heroL>=(g.tagTop-tipY)+6*u){ hero++; L=heroL; }
+    else if(room>=10*u) L=rnd(Math.max(8*u,room*.4),room);
+    else { used[pick]=1; if(budget>0) timer=setTimeout(release, 600); return; }   /* no room above the words for this one */
+    var r={state:'bead', tip:pick, t:performance.now(), beadT:rnd(1600,3000), x0:tip[0], hx:tip[0], hy:tip[1]-4, pts:[], hr:0,
+      w0:w0, wT:wT, v:0, a:55*u, vmax:rnd(38,52)*u, L:L, dist:0, amp:rnd(2.2,3.6)*u, lean:rnd(-.06,.06), seed:Math.random()*6.28, stop:0, bulb:bulb, tall:tall};
+    /* the top of the run is hidden inside the painted drip (the plate is drawn over the canvas): it tapers in from the drip's neck */
+    r.pts.push({x:tip[0], y:tip[1]-70, w:Math.min(w0*.4,tip[2]*g.s*.6)}, {x:tip[0], y:tip[1]-34, w:w0}, {x:tip[0], y:tip[1]-4, w:w0});
+    runs.push(r);
+    t0=0; if(!raf) raf=requestAnimationFrame(step);
+    if(budget>0) timer=setTimeout(release, rnd(5000,10000));
+  }
+  function begin(){
+    if(!measure()){ cv.remove(); return; }
+    if(location.hash==='#lp-debug') window.__lpDarah=function(){ return {g:g, runs:runs}; };   /* inspection hook, opt-in by URL hash */
+    mid.insertBefore(cv, mid.firstChild);
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ inView=es[0].isIntersecting; }, {threshold:.15}).observe(sheet);
+    var rs=0; addEventListener('resize', function(){ clearTimeout(rs); rs=setTimeout(function(){ if(measure()) draw(performance.now()); }, 120); });
+    timer=setTimeout(release, 2500);
+  }
+  var st=word.getAttribute('data-plate');
+  if(st==='ready') begin();
+  else if(st!=='missing') new MutationObserver(function(m,o){ var v=word.getAttribute('data-plate'); if(v==='ready'){ o.disconnect(); begin(); } else if(v==='missing') o.disconnect(); }).observe(word,{attributes:true,attributeFilter:['data-plate']});
+})();</script>
+<script>/* Api: the painting burns. A WebGL pass over the cover: heat shimmer and a slow flicker where the paint is fire
+   (found by colour in the shader), embers rising out of it, and the pocong's green rim breathing. The <img> stays
+   underneath as the picture for everyone else: no WebGL, reduced motion, a lost context. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var sheet=document.querySelector('.sheet'), img=sheet&&sheet.querySelector('.art'), pocong=document.querySelector('.pocong');
+  if(!sheet||!img||!window.WebGLRenderingContext) return;
+  var cv, gl, P, Q, tex, quad, pbuf, W, H, dpr, raf=0, last=0, t=0, on=false, shown=false, inView=true, cells=[], emb=[], N=0, geo, src='', pdata, br=-1;
+  var VS='attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  var FS='#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n'+
+    'varying vec2 v;uniform sampler2D T;uniform vec4 M;uniform float t,fl;'+
+    'float hs(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}'+
+    'float nz(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hs(i),hs(i+vec2(1,0)),f.x),mix(hs(i+vec2(0,1)),hs(i+vec2(1,1)),f.x),f.y);}'+
+    'float fire(vec3 c){return smoothstep(.1,.32,c.r-max(c.g,c.b))*smoothstep(.28,.55,c.r);}'+
+    'void main(){vec2 u=v*M.xy+M.zw;'+
+    /* heat is above fire: look a little below (down is -y in texture space here) */
+    'float h=fire(texture2D(T,u).rgb);h=max(h,fire(texture2D(T,u+vec2(0.,-.03)).rgb));h=max(h,.7*fire(texture2D(T,u+vec2(0.,-.07)).rgb));'+
+    'vec2 n=vec2(nz(u*vec2(9.,14.)+vec2(t*.35,t*.9)),nz(u*vec2(11.,9.)+vec2(-t*.25,t*.7)))-.5;'+
+    'vec3 c=texture2D(T,u+n*vec2(.0036,.0016)*h).rgb;'+
+    'float f=fire(c);c*=1.+f*fl;'+
+    'gl_FragColor=vec4(c,1.);}';
+  var PVS='attribute vec4 a;varying float al;varying float ht;void main(){al=a.w;ht=a.z;gl_Position=vec4(a.xy,0.,1.);gl_PointSize=a.z;}';
+  var PFS='precision mediump float;varying float al;varying float ht;void main(){float d=length((gl_PointCoord-.5)*vec2(1.25,.9));float glow=pow(smoothstep(.5,.0,d),1.2),core=smoothstep(.42,.12,d);float a=(glow*.6+core)*al*(ht>40.?.5:1.);vec3 c=mix(vec3(1.,.42,.05),vec3(1.,.88,.5),core*.8);gl_FragColor=vec4(c*a,a);}';
+  function sh(type,s){ var o=gl.createShader(type); gl.shaderSource(o,s); gl.compileShader(o); if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(o); return o; }
+  function prog(vs,fs){ var p=gl.createProgram(); gl.attachShader(p,sh(gl.VERTEX_SHADER,vs)); gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs)); gl.linkProgram(p); if(!gl.getProgramParameter(p,gl.LINK_STATUS)) throw gl.getProgramInfoLog(p); return p; }
+  function fit(){ /* object-fit:cover; object-position:50% 30% */
+    W=sheet.clientWidth; H=sheet.clientHeight; if(!W||!H) return false;
+    dpr=Math.max(.5, Math.min(window.devicePixelRatio||1, 2, Math.sqrt(2.2e6/(W*H)))*budgetK);
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    var iw=img.naturalWidth, ih=img.naturalHeight, s=Math.max(W/iw,H/ih), dw=iw*s, dh=ih*s, ox=(W-dw)/2, oy=(H-dh)*.3;
+    geo={s:s,ox:ox,oy:oy,dw:dw,dh:dh};
+    /* canvas uv (y up) -> texture uv (y up, image flipped on upload): u=(x-ox)/dw ; v=1-(y_top-oy)/dh */
+    var ax=W/dw, bx=-ox/dw, ay=H/dh, by=1-(H-oy)/dh;
+    gl.viewport(0,0,cv.width,cv.height); gl.useProgram(P); gl.uniform4f(gl.getUniformLocation(P,'M'),ax,ay,bx,by);
+    N=W>700?90:26; pdata=new Float32Array(N*4); emb.length=0;
+    return true;
+  }
+  function upload(){
+    if(img.currentSrc===src) return; src=img.currentSrc;
+    gl.bindTexture(gl.TEXTURE_2D,tex); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,1);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    /* where the paint is fire, from a thumbnail: the embers are born there */
+    var c2=document.createElement('canvas'), gw=48, gh=72; c2.width=gw; c2.height=gh; var x2=c2.getContext('2d'); x2.drawImage(img,0,0,gw,gh);
+    var d=x2.getImageData(0,0,gw,gh).data; cells.length=0;
+    var mx=1; for(var i=0;i<gw*gh;i++){ var r=d[i*4],g=d[i*4+1],b=d[i*4+2], f=r-Math.max(g,b); if(f>36&&r>110&&i/gw<gh*.9){ cells.push([((i%gw)+.5)/gw, (Math.floor(i/gw)+.5)/gh, f*r]); if(f*r>mx) mx=f*r; } }
+    for(i=0;i<cells.length;i++) cells[i][2]=.25+.75*cells[i][2]/mx;   /* a heat weight: the hottest paint breeds most */
+  }
+  function spawn(e){
+    var c, k=0; do{ c=cells[Math.random()*cells.length|0]||[.5,.5,1]; e.y=geo.oy+c[1]*geo.dh; }while((e.y<H*.12||e.y>H*.95||Math.random()>c[2])&&++k<8);
+    e.x=geo.ox+c[0]*geo.dw+(Math.random()-.5)*12; e.vy=-(48+Math.random()*60)*(W>700?1:.7); e.ph=Math.random()*6.28; e.f=.6+Math.random()*1.2;
+    e.life=0; e.T=Math.min(5+Math.random()*6, .36*H/-e.vy); var tier=Math.random(); e.sz=(tier<.6?10+Math.random()*8:20+Math.random()*10)*dpr*(W>700?1:.85);   /* two tiers only: the big soft orb read as a sprite laid over the paint */ e.wx=(Math.random()-.5)*8;
+  }
+  var slow=0, frames=0, budgetK=1, last0=0;
+  function frame(now){
+    raf=0; if(!on) return;
+    if(now-last<31){ raf=requestAnimationFrame(frame); return; }
+    var dt=Math.min(.1,(now-last)/1000)||.033; last=now; t=(t+dt)%1000;
+    /* governor: this pass must not cost the page its scroll. After warm-up, a frame is slow when the rAF cadence passes 50 ms.
+       Too many slow frames in a 60-frame window -> once, halve the buffer; still too many -> retire the fire, the painting stays still. */
+    if(++frames>20){ if(now-last0>50) slow++; if(frames%60===0){ if(slow>18){ if(budgetK>.5){ budgetK=.5; fit(); } else { retire(); return; } } slow=0; } } last0=now;
+    var fl=.03*Math.sin(t*2.3)+.018*Math.sin(t*5.1+1.7)+.012*Math.sin(t*9.7+.4);
+    gl.disable(gl.BLEND); gl.useProgram(P); gl.bindBuffer(gl.ARRAY_BUFFER,quad);
+    var pa=gl.getAttribLocation(P,'p'); gl.enableVertexAttribArray(pa); gl.vertexAttribPointer(pa,2,gl.FLOAT,false,0,0);
+    gl.uniform1f(gl.getUniformLocation(P,'t'),t); gl.uniform1f(gl.getUniformLocation(P,'fl'),fl); gl.uniform1i(gl.getUniformLocation(P,'T'),0);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    /* embers: a handful born each frame while there is room, rising with a slow sway, gone before the top */
+    if(emb.length<N&&Math.random()<.7){ var e={}; spawn(e); emb.push(e); }
+    var k=0;
+    for(var i=emb.length-1;i>=0;i--){
+      var m=emb[i]; m.life+=dt; m.y+=m.vy*dt; m.x+=(Math.sin(t*m.f+m.ph)*11+m.wx)*dt; m.vy-=3*dt;
+      if(m.life>m.T||m.y<-10||m.x<-10||m.x>W+10){ emb.splice(i,1); continue; }
+      var a=Math.min(1,m.life/.5)*Math.min(1,(m.T-m.life)/(m.T*.45))*(.6+.4*Math.sin(t*(6+m.f*4)+m.ph));
+      pdata[k*4]=m.x/W*2-1; pdata[k*4+1]=1-m.y/H*2; pdata[k*4+2]=m.sz*(1-.55*m.life/m.T); pdata[k*4+3]=a; k++;
+    }
+    if(k){
+      gl.enable(gl.BLEND); gl.blendFunc(gl.ONE,gl.ONE); gl.useProgram(Q);
+      gl.bindBuffer(gl.ARRAY_BUFFER,pbuf); gl.bufferData(gl.ARRAY_BUFFER,pdata.subarray(0,k*4),gl.DYNAMIC_DRAW);
+      var aa=gl.getAttribLocation(Q,'a'); gl.enableVertexAttribArray(aa); gl.vertexAttribPointer(aa,4,gl.FLOAT,false,0,0);
+      gl.drawArrays(gl.POINTS,0,k);
+    }
+    if(pocong){ var b=.5+.5*Math.sin(t*.9)*.7+.15*Math.sin(t*2.7+1); b=Math.round(b*25)/25; if(b!==br){ br=b; pocong.style.setProperty('--br',b); } }
+    if(!shown){ shown=true; cv.classList.add('on'); }
+    raf=requestAnimationFrame(frame);
+  }
+  function run(){ var want=inView&&!document.hidden; if(want&&!on){ on=true; last=performance.now(); last0=last; raf=requestAnimationFrame(frame); } else if(!want&&on){ on=false; if(raf) cancelAnimationFrame(raf); raf=0; } }
+  function retire(){ on=false; if(raf) cancelAnimationFrame(raf); raf=0; cv.classList.remove('on'); setTimeout(function(){ cv.remove(); }, 900); if(pocong) pocong.style.removeProperty('--br'); try{ sessionStorage.setItem('lp-api','0'); }catch(e){} }
+  function init(){
+    try{ if(sessionStorage.getItem('lp-api')==='0') return; }catch(e){}   /* it already bowed out on this device this session */
+    cv=document.createElement('canvas'); cv.className='api'; cv.setAttribute('aria-hidden','true');
+    try{ gl=cv.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,powerPreference:'low-power'}); }catch(e){ gl=null; }
+    if(!gl) return;
+    try{ P=prog(VS,FS); Q=prog(PVS,PFS); }catch(e){ return; }
+    quad=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,quad); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    pbuf=gl.createBuffer(); tex=gl.createTexture();
+    upload(); if(!fit()) return;
+    img.parentNode.insertAdjacentElement('afterend', cv);   /* a sibling of the <picture>, right after it, under the ghost and the rows */
+    on=true; last=performance.now()-33; raf=requestAnimationFrame(frame);
+    cv.addEventListener('webglcontextlost', function(e){ e.preventDefault(); on=false; if(raf) cancelAnimationFrame(raf); cv.remove(); if(pocong) pocong.style.removeProperty('--br'); });
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ inView=es[0].isIntersecting; run(); }, {threshold:0}).observe(sheet);
+    document.addEventListener('visibilitychange', run);
+    var rs=0; addEventListener('resize', function(){ clearTimeout(rs); rs=setTimeout(function(){ if(img.complete&&img.naturalWidth){ upload(); fit(); } }, 150); });
+    img.addEventListener('load', function(){ upload(); fit(); });   /* the <picture> swaps its source across 560px */
+  }
+  function ready(){ (img.decode?img.decode().catch(function(){}):Promise.resolve()).then(function(){ if('requestIdleCallback' in window) requestIdleCallback(init,{timeout:1500}); else setTimeout(init,300); }); }
+  if(img.complete&&img.naturalWidth) ready(); else img.addEventListener('load', ready, {once:true});
+})();</script>
+<script>/* Pocong: it hangs on a spring. The CSS drift becomes the resting motion; scrolling moves the sheet it hangs from,
+   so it lags and swings back; on a fine pointer the cursor is a faint wind it leans away from. Degrades to the drift. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var el=document.querySelector('.pocong'), sheet=document.querySelector('.sheet'); if(!el||!sheet) return;
+  var x=0,y=0,r=0,vx=0,vy=0,vr=0,t=0,last=0,raf=0,on=false,inView=true,lastY=window.pageYOffset,wind=0,ax,ay,rA;
+  function size(){ var w=el.getBoundingClientRect().width||100; ax=.056*w; ay=.105*w; rA=w>100?2:1.5; }
+  function frame(now){
+    raf=0; if(!on) return;
+    var dt=Math.min(.05,(now-last)/1000)||.016; last=now; t+=dt;
+    var u=(1+Math.sin(t*.349))/2;                  /* the old 9s alternate drift, as the resting path */
+    var tx=-ax*2*u-wind*6, ty=-ay*2*u, tr=rA*(2*u-1)-wind*3+vx*.12;
+    vx+=(-9*(x-tx)-1.3*vx)*dt; vy+=(-9*(y-ty)-1.3*vy)*dt; vr+=(-7*(r-tr)-.95*vr)*dt;
+    x+=vx*dt; y+=vy*dt; r+=vr*dt;
+    el.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0) rotate('+r.toFixed(2)+'deg)';
+    raf=requestAnimationFrame(frame);
+  }
+  function run(){ var want=inView&&!document.hidden; if(want&&!on){ on=true; last=performance.now(); vx=vy=vr=0; raf=requestAnimationFrame(frame); } else if(!want&&on){ on=false; if(raf) cancelAnimationFrame(raf); raf=0; } }
+  size(); el.classList.add('sw'); run();
+  addEventListener('scroll', function(){ var sy=window.pageYOffset, d=sy-lastY; lastY=sy; if(!on) return; vy=Math.max(-90,Math.min(90,vy+d*.25)); vr=Math.max(-40,Math.min(40,vr+d*.12)); }, {passive:true});
+  if(matchMedia('(pointer:fine)').matches) addEventListener('pointermove', function(e){ var b=el.getBoundingClientRect(); wind=Math.max(-1,Math.min(1,(e.clientX-(b.left+b.width/2))/320)); }, {passive:true});
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ inView=es[0].isIntersecting; run(); }, {threshold:0}).observe(sheet);
+  document.addEventListener('visibilitychange', run);
+  var rs=0; addEventListener('resize', function(){ clearTimeout(rs); rs=setTimeout(size,150); });
 })();</script>
 </body>
 </html>
