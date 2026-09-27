@@ -212,7 +212,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .showing :focus-visible{outline-color:var(--ink)}
 
 /* ---------- the one-sheet ---------- */
-.sheet{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#000;display:grid;grid-template-rows:auto 1fr auto}   /* vh first: engines without svh (Safari <15.4, Chrome <108) keep a full-height sheet */
+.sheet{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#000;display:grid;grid-template-rows:1fr auto}   /* vh first: engines without svh (Safari <15.4, Chrome <108) keep a full-height sheet */
 .sheet picture,.sheet .art{position:absolute;inset:0;width:100%;height:100%}
 .sheet .art{object-fit:cover;object-position:50% 30%}
 .sheet::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,18,.82) 0,rgba(11,10,18,.7) 5%,rgba(11,10,18,.52) 10%,rgba(11,10,18,.34) 15%,rgba(11,10,18,.2) 20%,rgba(11,10,18,.11) 25%,rgba(11,10,18,.06) 30%,rgba(11,10,18,.05) 34%,rgba(11,10,18,.2) 40%,rgba(11,10,18,.62) 46%,rgba(11,10,18,.9) 60%,rgba(11,10,18,.98) 80%);pointer-events:none}
@@ -226,20 +226,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .api{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s;pointer-events:none}
 .api.on{opacity:1}
 .mid>canvas.darah{position:absolute;z-index:0;pointer-events:none}
-.mid .title,.mid .tag,.mid .lead{position:relative;z-index:1}
+.mid .h1,.mid .title,.mid .tag,.mid .lead{position:relative;z-index:1}
+.mid .title{z-index:2}   /* the red letters stand in front of the logo's drips */
 @media (prefers-reduced-motion:reduce){.api,.darah{display:none}.pocong.sw{animation:none;transform:none}}
 @keyframes drift{from{transform:translate(0,0) rotate(-2deg)}to{transform:translate(-14px,-26px) rotate(2deg)}}
 @keyframes drift-s{from{transform:translate(0,0) rotate(-1.5deg)}to{transform:translate(-6px,-10px) rotate(1.5deg)}}   /* under 980px the ghost shares its band with the tagline: a shorter drift */
 .row{position:relative;z-index:3;width:100%;max-width:1240px;margin:0 auto;padding-left:clamp(16px,4vw,52px);padding-right:clamp(16px,4vw,52px)}
-.top{padding-top:18px;display:grid;justify-content:center}
-.top .h1{margin:0;font-size:0}
+/* the band's name is the top of the title lockup: the drip logo as wide as KORUPSI's ink, the title rising 30% into it
+   so the logo's drips hang behind the red letters. Sized from the title (--th) so the lockup holds at every width, capped
+   by height so a short laptop keeps the play control in the fold. Black halo: white lettering over the shaft's glow. */
+.mid{--th:clamp(84px,13vw,200px);--lh:min(calc(var(--th)*1.65),36vh)}
+.mid .h1{margin:0 auto calc(var(--lh)*-.26 - var(--th)*.212);font-size:0;line-height:0}
 /* alt text must survive the font-size:0 wrapper if the logo file ever fails */
-.top .h1 img{height:clamp(56px,6vw,84px);width:auto;filter:drop-shadow(0 3px 0 #000);font:700 18px/1.2 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.1em;color:#fff}
+.mid .h1 img{display:block;margin:0 auto;height:var(--lh);width:auto;filter:drop-shadow(0 0 3px rgba(0,0,0,.95)) drop-shadow(0 0 18px rgba(0,0,0,.8)) drop-shadow(0 6px 0 #000);font:700 calc(var(--th)*.42)/1.05 'Barlow Condensed','Barlow Condensed FB',sans-serif;letter-spacing:.06em;color:#fff}
 
-.mid{align-self:end;text-align:center;padding-top:14vh;padding-bottom:10px;position:relative}
+.mid{align-self:end;text-align:center;padding-top:2vh;padding-bottom:10px;position:relative}
 .mid::before{content:"";position:absolute;left:-100vw;right:-100vw;top:-30%;bottom:-40%;background:radial-gradient(ellipse 60% 62% at 50% 62%,rgba(11,10,18,.85),rgba(11,10,18,.55) 55%,rgba(11,10,18,.18) 82%,transparent 100%);pointer-events:none;z-index:-1}   /* the ellipse fades out before the box edge: no cut across the painting */
 .mid>*{position:relative}
-.mid .title{margin:0 auto;color:var(--blood-l);font-size:clamp(84px,13vw,200px);line-height:1;width:min(100%,900px);filter:drop-shadow(0 0 3px rgba(0,0,0,.95)) drop-shadow(0 0 16px rgba(0,0,0,.85)) drop-shadow(0 8px 0 #2a0507)}
+.mid .title{margin:0 auto;color:var(--blood-l);font-size:var(--th);line-height:1;width:min(100%,900px);filter:drop-shadow(0 0 3px rgba(0,0,0,.95)) drop-shadow(0 0 24px rgba(0,0,0,.9)) drop-shadow(0 8px 0 #2a0507)}
 .mid .title .pd-word{display:block;height:1em;width:100%}
 .mid .tag{margin:clamp(10px,1.8vw,26px) auto 0;max-width:21em;text-wrap:balance;font:400 clamp(24px,2.6vw,36px)/1.15 'Homemade Apple','Homemade Apple FB',cursive;color:#ff7a70;text-shadow:0 2px 0 #000,0 0 8px #000,0 0 24px #000}
 .mid .tag small{display:block;margin-top:10px;font:italic 400 clamp(16px,1.3vw,18px)/1.4 'PT Serif','PT Serif FB','PT Serif FB2',serif;color:#e9dfc9;text-shadow:0 1px 0 #000,0 0 8px #000}
@@ -322,13 +326,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   .outlets{grid-template-columns:repeat(3,minmax(0,1fr))}   /* stacked: the buttons have the whole row */
   /* 10vw, not 14: on a short tablet (600x800) the 14vw ghost's feet stood 8px into the tagline; at 10vw it clears the tagline by 18px and the date chip by 3px at the far end of its drift */
   .pocong{width:10vw;right:3%;top:max(84px,9%);animation-name:drift-s}   /* 84px floor keeps the drifting head clear of the logo row on a 700px-tall tablet */
-  .mid{padding-top:10vh}
+  .mid{padding-top:2vh}
 }
 @media (max-width:560px){
   body{font-size:16px}
-  .top{justify-content:start}.pocong{width:54px;right:10px;top:78px}
-  .mid{padding-top:6vh}
-  .mid .title{font-size:clamp(72px,22vw,110px)}
+  .pocong{width:54px;right:10px;top:78px}
+  .mid{padding-top:2vh;--th:clamp(72px,22vw,110px)}
   .mid .tag{font-size:21px}.mid .tag small{font-size:15px}.mid .lead{font-size:15px}
   .bill{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;text-align:left}.bill span{text-align:left;font-size:18px}
   .stub{padding-bottom:26px}
@@ -372,7 +375,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 /* Windows high contrast: the masks would fill with the system canvas colour and read as blank blocks, so keep our
    own paint on the plates and the pocong; give the text-only controls a border, which is how that mode says 'button' */
 @media (forced-colors:active){
-  [role=img][class$="-word"],.pocong,.top .h1 img,.sheet .art{forced-color-adjust:none}
+  [role=img][class$="-word"],.pocong,.mid .h1 img,.sheet .art{forced-color-adjust:none}
   .lyr-tools button,.lyr-close,.dock-play,.player-btn,.chip,.outlet{border:2px solid ButtonText}
   .lyr-song::before,.player-btn::before{display:none}
   .sheet::before,.sheet::after,.mid::before{display:none}
@@ -397,7 +400,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   .sheet{min-height:0;display:block;overflow:visible}
   .sheet picture,.sheet::before,.sheet::after,.mid::before,.pocong,.player-btn::before,.listen,.lyr-tools,.lyr-tog,.lyr-close,.lyr-song::before,.still,.skip{display:none!important}
   .mid .tag,.mid .tag small,.mid .lead,.mid .lead span,.bill,.bill span,.bill span small{color:#000!important;text-shadow:none!important}
-  .top .h1 img{filter:invert(1)}
+  .mid .h1 img{filter:invert(1);height:auto;max-width:60mm;margin-bottom:0}
+  .mid .h1{margin-bottom:6mm}
   .mid .title,.reel h2,.syn h2,.showing h2{color:#000!important;filter:none!important}
   [role=img][class$="-word"]{background:none;-webkit-mask:none;mask:none;height:auto;aspect-ratio:auto!important;width:auto;margin-left:0;margin-top:0;line-height:1}
   [role=img][class$="-word"]::after{display:block;text-align:left}
@@ -421,10 +425,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <header class="sheet" id="atas" data-hero>
   <picture><source media="(max-width:560px)" type="image/avif" srcset="/assets/img/horor-cover-painted-m.avif" width="720" height="1536"><source media="(max-width:560px)" type="image/webp" srcset="/assets/img/horor-cover-painted-m.webp" width="720" height="1536"><source type="image/avif" srcset="/assets/img/horor-cover-painted.avif"><source type="image/webp" srcset="/assets/img/horor-cover-painted.webp"><img class="art" src="/assets/img/horor-cover-painted.jpg" width="1024" height="1536" alt="" aria-hidden="true" fetchpriority="high" decoding="async"></picture>
   <img class="pocong" src="/assets/img/horor-pocong-300.webp" srcset="/assets/img/horor-pocong-180.webp 180w, /assets/img/horor-pocong-300.webp 300w" sizes="(max-width:560px) 54px, (max-width:980px) 14vw, 124px" width="300" height="1060" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
-  <div class="row top">
-    <h1 class="h1" translate="no"><img src="/assets/img/logo-drip-280.webp" width="280" height="274" alt="Ledakan Pemuda"><span class="sr"> — Korupsi</span></h1>
-  </div>
   <div class="row mid">
+    <h1 class="h1" translate="no"><img src="/assets/img/logo-drip-800.webp" srcset="/assets/img/logo-drip-400.webp 400w, /assets/img/logo-drip-800.webp 800w" sizes="(max-width:560px) 150px, (max-width:980px) 230px, 320px" width="800" height="782" alt="Ledakan Pemuda" fetchpriority="high" decoding="async"><span class="sr"> — Korupsi</span></h1>
     <p class="title"><span class="pd-word" role="img" aria-label="Korupsi" style="--w:url(/assets/img/word-korupsi.webp);aspect-ratio:1425/822"></span></p>
     <p class="tag" lang="id">Namaku ditulis pakai tinta darah.<small lang="en">“My name is written in blood&nbsp;ink.” — Tulisan Darah, lagu 02</small></p>
     <p class="lead" lang="id">Direkam di Jakarta 2019, di tengah unjuk rasa. Lagu tentang kecanduan, kematian, amarah, dan perlawanan. <span lang="en">Recorded in Jakarta in 2019, during the protests. Songs about addiction, mortality, anger and revolution.</span></p>

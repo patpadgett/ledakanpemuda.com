@@ -45,6 +45,9 @@ Three motion layers in one inlined script (`drafts/round3/overdrive.js`, one IIF
 - **Pocong** — a damped spring on the ghost: scroll velocity swings it, a fine pointer is a faint wind; degrades to the 9 s CSS drift.
 Verified: 1440/1024/390 (2x) in Chromium, zero console errors, drip geometry dumped per viewport (`#lp-debug` exposes `__lpDarah()`), reduced-motion and no-WebGL runs clean, `.mid::before` shade no longer cuts a hard edge across the painting (the ellipse fades before its box), the plate preload carries `crossorigin` so it is actually used by the mask fetch. Unmeasured: real-GPU frame cost (only software GL here) — the governor is the safety net. Known residue: at desktop scale the runs' wander is sub-pixel and reads straight to a strict eye.
 
+## Title lockup (2026-09-27)
+The band's drip logo is the top of the title stack, not a masthead: as wide as KORUPSI's ink (`--lh` = 1.65× the title size, capped at 36vh so a short laptop keeps the play control in the fold), the red title rising into its drips (`.mid .h1` negative bottom margin = 26% of the logo + the plate's 21% clear top), title in front (`z-index:2`) with a wider black halo so the red still leads. Ships as `logo-drip-400/800.webp` with `sizes` for its slot. The old `.row.top` masthead row is gone (sheet grid is `1fr auto`).
+
 ## What changed for launch (round-3 critique P1s, fixed in `listen.py`)
 - Play control tells the truth: BUKA PEMUTAR / OPEN THE BANDCAMP PLAYER → TUTUP PEMUTAR once open (closing removes the iframe; Bandcamp can't be started from outside its frame). One-line note with an exit to Bandcamp.
 - Four outlets (Bandcamp, Spotify, Apple Music, YouTube Music) directly under the control; a fixed dock (Putar · outlets) once the hero scrolls away, off over IKUTI and the footer.
